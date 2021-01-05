@@ -1,8 +1,14 @@
 import React from 'react'
 
-export default function HexList ({h3}) {
+import HexListItem from './HexListItem'
 
+export default function HexList ({hexes, switchHex}) {
+    console.log("HEXESSSSS", hexes)
     return (
-        <h1>HI</h1>
+        <div className="flex flex-col w-full">
+        {hexes.map((hex, idx) => (
+            <HexListItem key={idx} hex={hex} switchHex={switchHex} />
+        ))}
+        </div>
     )
 }
