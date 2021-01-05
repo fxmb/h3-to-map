@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start -p $PORT",
+    "heroku-postbuild": "echo Skip build on Heroku"
+  
   },
   "dependencies": {
     "autoprefixer": "^10.1.0",
