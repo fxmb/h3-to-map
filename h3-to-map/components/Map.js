@@ -2,13 +2,13 @@ import React, {useEffect} from 'react'
 
 import toGeoJSON from '../helpers/geoJson'
 
-import { MapContainer, TileLayer, Marker, Popup, Polygon, GeoJSON } from 'react-leaflet'
+import { MapContainer, TileLayer, Tooltip, Popup, Polygon, GeoJSON } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import "leaflet-defaulticon-compatibility";
 
-
-export default function Map({zoom , h3Points, polygon}) {
+import customMarker from '../helpers/customMarker'
+export default function Map({hexes , h3Points, polygon}) {
 
     console.log(polygon)
 
@@ -24,14 +24,17 @@ export default function Map({zoom , h3Points, polygon}) {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {h3Points.map(h3Point => (
-            <Marker position={h3Point}>
+
+        {hexes.map(poly => (<GeoJSON data={toGeoJSON(poly.hexPolygon)}>
+        <Tooltip sticky>{`Lat ${poly.hexCenter[0]}
+                    Lng ${poly.hexCenter[1]}
+                    Hex ${poly.hex}`}</Tooltip>
                 <Popup>
-                    {`Lat ${h3Point[0]} Lng ${h3Point[1]}`}
+                    {`Lat ${poly.hexCenter[0]}
+                    Lng ${poly.hexCenter[1]}
+                    Hex ${poly.hex}`}
                 </Popup>
-            </Marker>
-        ))}
-        {polygon.map(poly => <GeoJSON data={toGeoJSON(poly)} /> )}
+            </GeoJSON> ))}
       </MapContainer>
     )
     

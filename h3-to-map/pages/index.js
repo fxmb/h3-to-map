@@ -1,12 +1,12 @@
 import {useState, useEffect} from 'react'
 
-import {h3ToGeo} from "h3-js";
+const h3 = require("h3-js");
 
 import dynamic from "next/dynamic";
 
 import HexList from '../components/HexList'
 
-const h3 = require("h3-js");
+import fetchHexInfo from '../helpers/h3API'
 
 export default function Home() {
 
@@ -16,7 +16,7 @@ export default function Home() {
   const [isValidHex, setIsValidHex] = useState(true);
   const [mapCenter, setMapCenter] = useState({lat: 51.312801, lng: 9.481544});
   const [poly, setPoly] = useState([]);
-
+  const [totalHexes, setTotalHexes] = useState([]);
   
 
 
@@ -27,6 +27,9 @@ export default function Home() {
 
       setIsValidHex(true)
       
+      const hexInfo = await fetchHexInfo(currentHex)
+      setTotalHexes(totalHexes => [...totalHexes, hexInfo])
+
       const hexCoordinates = await getHexCenterCoordinates(currentHex)
       const hexOutline = await getHexOutline(currentHex)
 
@@ -73,7 +76,7 @@ export default function Home() {
 
     <div >
         <div>
-        <MapWithNoSSR className="min-w-full flex-1" zoom={13} h3Points={currentHexList} center={mapCenter} polygon={poly}/>
+        <MapWithNoSSR className="min-w-full flex-1" zoom={13} h3Points={currentHexList} center={mapCenter} polygon={poly} hexes={totalHexes}/>
         </div>
     </div>
   </div>
