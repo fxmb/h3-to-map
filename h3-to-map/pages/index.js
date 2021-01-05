@@ -1,33 +1,81 @@
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
+
+import {h3ToGeo} from "h3-js";
+
+import dynamic from "next/dynamic";
+
+import HexList from '../components/HexList'
+
+const h3 = require("h3-js");
 
 export default function Home() {
 
+
   const [currentHex, setCurrentHex] = useState("");
+  const [currentHexList, setCurrentHexList] = useState([]);
+  const [isValidHex, setIsValidHex] = useState(true);
+  const [mapCenter, setMapCenter] = useState({lat: 51.312801, lng: 9.481544});
+  const [poly, setPoly] = useState([]);
 
-  const changeInput = (input)  => {
+  
 
-    setCurrentHex(input.target.value)
-  }
 
-  const handleKeyDown = (event) => {
+  const handleKeyDown = async (event) => {
     if(event.key === 'Enter') {
-      alert("Input is " + currentHex);
+
+      if( h3.h3IsValid(currentHex) ){
+
+      setIsValidHex(true)
+      
+      const hexCoordinates = await getHexCenterCoordinates(currentHex)
+      const hexOutline = await getHexOutline(currentHex)
+
+      setCurrentHexList(currentHexList => [...currentHexList, hexCoordinates])
+      setPoly(hexOutline)
+      console.log('HEXCOORDINATES', String(hexCoordinates))
+      console.log('HEXOUTLINE', hexOutline)
+
+    } else {
+      setIsValidHex(false)
     }
-    
 
   }
+
+  }
+
+  const getHexCenterCoordinates = async (hex) => {
+    const fetchedHex = await h3.h3ToGeo(hex)
+    return fetchedHex
+  }
+
+  const getHexOutline = async (hex) => {
+    const fetchedHex = await h3.h3SetToMultiPolygon([hex], true)
+    return fetchedHex
+  }
+
+  const MapWithNoSSR = dynamic(() => import("../components/Map"), {
+    ssr: false
+  });
+
 
   return (
-    <>
+    <div className="mx-10 p-10 text-center">
     <input
-      class="search"
-      className="px-5 outline-none border-b-10"
+      className="px-5 mb-2 text-center outline-none border-0 border-b-2 border-grey-dark text-gray-600"
       placeholder="Enter H3 Code"
-      onChange={(e) => changeInput(e)}
+      onChange={(e) => setCurrentHex(e.target.value)}
       value={currentHex}
       onKeyDown={handleKeyDown}>
     </input>
-    <p>{currentHex}</p>
-  </>
+    {!isValidHex ? 
+    <p className="text-red-300 text-xs">Please Enter A Valid Hex, e.g. "881f18b219fffff"</p>
+  : null}
+
+    <div >
+        <div>
+        <MapWithNoSSR className="min-w-full flex-1" zoom={13} h3Points={currentHexList} center={mapCenter} polygon={poly}/>
+        </div>
+    </div>
+  </div>
   )
 }
