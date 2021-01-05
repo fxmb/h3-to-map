@@ -31,7 +31,7 @@ export default function Home() {
       const hexOutline = await getHexOutline(currentHex)
 
       setCurrentHexList(currentHexList => [...currentHexList, hexCoordinates])
-      setPoly(hexOutline)
+      setPoly(poly => [...poly, hexOutline])
       console.log('HEXCOORDINATES', String(hexCoordinates))
       console.log('HEXOUTLINE', hexOutline)
 

@@ -1,5 +1,7 @@
 import React, {useEffect} from 'react'
 
+import toGeoJSON from '../helpers/geoJson'
+
 import { MapContainer, TileLayer, Marker, Popup, Polygon, GeoJSON } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
@@ -8,18 +10,8 @@ import "leaflet-defaulticon-compatibility";
 
 export default function Map({zoom , h3Points, polygon}) {
 
-    var data = {
-        type: "FeatureCollection",
-        features: [{
-            "type": "Feature",
-            geometry: {
-                "type": "MultiPolygon",
-                "coordinates": polygon
-            }
-        }]
-    };
-    
     console.log(polygon)
+
     return (
         <MapContainer
         style={{ height: "100vh" }} 
@@ -39,7 +31,7 @@ export default function Map({zoom , h3Points, polygon}) {
                 </Popup>
             </Marker>
         ))}
-        <GeoJSON data={data} />
+        {polygon.map(poly => <GeoJSON data={toGeoJSON(poly)} /> )}
       </MapContainer>
     )
     
