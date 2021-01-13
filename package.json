@@ -6,12 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "heroku-postbuild": "npm run build",
-<<<<<<< HEAD:package.json
     "start": "next start"
-=======
-    "start": "next start -p $PORT" 
-  
->>>>>>> de847ac3f45023f4d646a57a06b4e7ab7a43c9f8:h3-to-map/package.json
+
   },
   "dependencies": {
     "@headlessui/react": "^0.2.0",
