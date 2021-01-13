@@ -5,11 +5,11 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start",
-    "heroku-postbuild": "echo Skip build on Heroku"
-  
+    "heroku-postbuild": "npm run build",
+    "start": "next start"
   },
   "dependencies": {
+    "@headlessui/react": "^0.2.0",
     "autoprefixer": "^10.1.0",
     "h3-js": "^3.7.0",
     "leaflet": "^1.7.1",
@@ -23,6 +23,7 @@
     "react-dom": "17.0.1",
     "react-geocode": "^0.2.2",
     "react-leaflet": "^3.0.5",
+    "react-places-autocomplete": "^7.3.0",
     "tailwindcss": "^2.0.2"
   }
 }

@@ -5,7 +5,9 @@ import dynamic from "next/dynamic";
 
 import HexList from '../components/HexList'
 import HexInput from '../components/HexInput'
-import ClearHexes from '../components/ClearHexes'
+import ClearHexesButton from '../components/ClearHexesButton'
+import LocationSearchInput from '../components/SearchAddress'
+
 export default function Home() {
 
 
@@ -47,12 +49,13 @@ export default function Home() {
       <div className="flex flex-col w-1/5 bg-white-400">
         <div className="flex flex-row justify-between items-center">
           <h2 className="mx-3 text-xl font-semibold">Recently Viewed</h2>
-          <ClearHexes setTotalHexes={setTotalHexes}/>
+          <ClearHexesButton setTotalHexes={setTotalHexes}/>
         </div>
         <hr className="mb-1 mx-3 border-grey border-1"></hr> 
         <HexList className="flex flex-col" hexes={totalHexes} switchHex={switchHex}/>
       </div>
     </div>
+
   </div>
   </div>
   )
