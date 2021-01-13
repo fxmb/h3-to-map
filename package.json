@@ -5,9 +5,8 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "heroku-postbuild": "npm run build",
-    "start": "next start"
-
+    "start": "next start",
+    "heroku-postbuild": "npm run build"
   },
   "dependencies": {
     "@headlessui/react": "^0.2.0",
