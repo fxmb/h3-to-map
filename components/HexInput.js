@@ -42,7 +42,7 @@ export default function HexInput ({totalHexes, setTotalHexes, setMapCenter, mapC
 
     return(
 
-      <div className="flex mx-10 p-10 text-center justify-between">
+      <div className="flex mx-10 p-10 text-center items-center justify-between">
       <input
         className="px-5 py-2 text-lg text-left outline-none rounded-xl border-2 border-blue-500 text-gray-500 font-semibold"
         placeholder="Enter H3 Code"
@@ -53,7 +53,7 @@ export default function HexInput ({totalHexes, setTotalHexes, setMapCenter, mapC
       {!isValidHex ?
             <Transition
             show={true}
-            className="absolute p-2 mt-2 ml-72 z-100 text-white bg-red-400 text-s rounded-lg"
+            className="absolute p-2 ml-72 z-100 text-white bg-red-400 text-s rounded-lg"
             as="p"
             enter="transition-opacity duration-1000"
             enterFrom="opacity-0"
@@ -67,7 +67,7 @@ export default function HexInput ({totalHexes, setTotalHexes, setMapCenter, mapC
       : !isNewHex ? 
       <Transition
       show={!isNewHex}
-      className="absolute p-2 mt-2 ml-72 z-100 text-white bg-blue-500 text-s rounded-lg"
+      className="absolute p-2 ml-72 z-100 text-white bg-blue-500 text-s rounded-lg"
       as="p"
       enter="transition-opacity duration-1000"
       enterFrom="opacity-0"
