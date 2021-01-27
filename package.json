@@ -5,18 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-<<<<<<< HEAD:package.json
     "start": "next start",
     "heroku-postbuild": "npm run build"
-=======
-    "heroku-postbuild": "npm run build",
-    "start": "next start -p $PORT" 
-  
->>>>>>> de847ac3f45023f4d646a57a06b4e7ab7a43c9f8:h3-to-map/package.json
   },
   "dependencies": {
     "@headlessui/react": "^0.2.0",
     "autoprefixer": "^10.1.0",
+    "copy-to-clipboard": "^3.3.1",
     "h3-js": "^3.7.0",
     "leaflet": "^1.7.1",
     "leaflet-defaulticon-compatibility": "^0.1.1",
@@ -26,8 +21,11 @@
     "node": "^15.4.0",
     "postcss": "^8.2.2",
     "react": "17.0.1",
+    "react-copy-to-clipboard": "^5.0.3",
     "react-dom": "17.0.1",
     "react-geocode": "^0.2.2",
+    "react-google-autocomplete": "^1.2.6",
+    "react-google-places-autocomplete": "^3.0.0",
     "react-leaflet": "^3.0.5",
     "react-places-autocomplete": "^7.3.0",
     "tailwindcss": "^2.0.2"
