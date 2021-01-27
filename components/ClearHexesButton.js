@@ -9,7 +9,7 @@ export default function ClearHexes ({setTotalHexes}) {
 
     return (
     <button
-        className="m-2 p-1 px-2 bg-red-400 text-white rounded-lg outline-none"
+        className="flex mx-5 my-2 p-2 bg-red-400 text-white text-xs rounded-xl outline-none font-semibold"
         onClick={() => clearHexes()}
         >
             Clear

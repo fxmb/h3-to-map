@@ -1,5 +1,7 @@
 import React from 'react'
 
+import {CopyToClipboard} from 'react-copy-to-clipboard';
+
 export default function HexListItem ( {hex, switchHex} ) {
 
     console.log(hex)
@@ -27,6 +29,9 @@ export default function HexListItem ( {hex, switchHex} ) {
                 <div className="flex mt-5 text-blue-500">
                     {hex.hexCity?.city}
                 </div>
+                <CopyToClipboard text={`${hex.hexCenter[0]} ${hex.hexCenter[1]}`}>
+                    <span className="flex mt-3 p-2 text-white bg-blue-500 text-xs rounded-xl font-semibold justify-center items-center">Copy</span>
+                </CopyToClipboard>
             </div>
         </div>
     )

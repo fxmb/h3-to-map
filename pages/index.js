@@ -7,12 +7,17 @@ import HexList from '../components/HexList'
 import HexInput from '../components/HexInput'
 import ClearHexesButton from '../components/ClearHexesButton'
 import LocationSearchInput from '../components/SearchAddress'
+import SwitchToggle from '../components/SwitchToggle'
+
+import Logo from '../icons/logo.svg';
+
 
 export default function Home() {
 
 
   const [mapCenter, setMapCenter] = useState({lat: 51.312801, lng: 9.481544});
   const [totalHexes, setTotalHexes] = useState([]);
+  const [switchValue, setSwitchValue] = useState(false);
 
   function switchHex(hex) {
 
@@ -37,11 +42,21 @@ export default function Home() {
   });
 
   return (
-    <div className="h-screen">
+    <div className="h-screen  bg-gray-100">
     <div className="flex flex-col min-h-full">
-      
-    <HexInput totalHexes={totalHexes} mapCenter={mapCenter} setTotalHexes={setTotalHexes} setMapCenter={setMapCenter}/>
-
+    <img className="flex m-3 ml-5 h-14 absolute" src={Logo} alt="React Logo" />
+      <div className="flex w-4/5 h-20 justify-center items-center">
+        <div className="flex justify-center items-center">
+        <div className="flex m-3">
+        <span className={`flex mr-3 text-lg font-semibold ${switchValue ? 'text-gray-500' : 'text-blue-500'}`}>H3 Code</span>
+          <SwitchToggle switchValue={switchValue} setSwitchValue={setSwitchValue} />
+          <span className={`flex ml-3 text-lg font-semibold ${switchValue ? 'text-blue-500' : 'text-gray-500'}`}>Address</span>
+        </div>
+      {switchValue ?
+        <LocationSearchInput totalHexes={totalHexes} mapCenter={mapCenter} setTotalHexes={setTotalHexes} setMapCenter={setMapCenter}></LocationSearchInput>
+      : <HexInput totalHexes={totalHexes} mapCenter={mapCenter} setTotalHexes={setTotalHexes} setMapCenter={setMapCenter}/>}
+    </div>
+    </div>
     <div className="flex" >
       <div className="h-screen w-4/5">
         <MapWithNoSSR center={mapCenter} hexes={totalHexes}/>

@@ -40,31 +40,11 @@ export default function HexInput ({totalHexes, setTotalHexes, setMapCenter, mapC
     }
   }
 
-
-    // return(
-
-    //     <div className="flex mx-10 p-10 text-center justify-center">
-    //     <input
-    //       className="px-5 mb-2 text-xl text-center outline-none border-0 border-b-2 border-grey-dark text-gray-600"
-    //       placeholder="Enter H3 Code"
-    //       onChange={(e) => setCurrentHex(e.target.value)}
-    //       value={currentHex}
-    //       onKeyDown={handleKeyDown}>
-    //     </input>
-    //     {!isValidHex ?
-    //     <p className="absolute p-1 mt-10 text-white bg-red-400 text-s rounded-lg">Please Enter A Valid Hex, e.g. "881f18b219fffff"</p>
-    //     : !isNewHex ? 
-    //     <p className="absolute p-1 mt-10 text-white bg-blue-500 text-s rounded-lg">This hex ID already is in your history</p>
-    //     : null}
-    //   </div>
-
-    // )
-
     return(
 
       <div className="flex mx-10 p-10 text-center justify-center">
       <input
-        className="px-5 mb-2 text-xl text-center outline-none border-0 border-b-2 border-grey-dark text-gray-600"
+        className="px-5 py-2 text-lg text-left outline-none rounded-xl border-2 border-blue-500 text-gray-500 font-semibold"
         placeholder="Enter H3 Code"
         onChange={(e) => setCurrentHex(e.target.value)}
         value={currentHex}
