@@ -57,9 +57,9 @@ export default function Home() {
       : <HexInput totalHexes={totalHexes} mapCenter={mapCenter} setTotalHexes={setTotalHexes} setMapCenter={setMapCenter}/>}
     </div>
     </div>
-    <div className="flex" >
-      <div className="h-screen w-4/5">
-        <MapWithNoSSR center={mapCenter} hexes={totalHexes}/>
+    <div className="flex z-1" >
+      <div className="h-screen w-4/5 z-1">
+        <MapWithNoSSR className="z-1" center={mapCenter} hexes={totalHexes}/>
       </div>
       <div className="flex flex-col w-1/5 bg-white-400">
         <div className="flex flex-row justify-between items-center">
