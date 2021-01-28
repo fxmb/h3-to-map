@@ -27,20 +27,24 @@ export default function Map({hexes, center}) {
         url='https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png'
         />
 
-        {hexes.map(poly => (
+        {hexes
+        .sort((hexA, hexB) => hexA.hexResolution > hexB.hexResolution ? 1 : -1)
+        .map(poly => (
+            
             <GeoJSON 
                 data={toGeoJSON(poly.hexPolygon)}
-                className="bg-green-500"
+                style={{fillColor: poly.hexColorCode, color: poly.hexColorCode}}
                 >
             <Marker position={{lat: poly.hexCenter[0], lng: poly.hexCenter[1]}}
                     icon={getLabel(poly.hex)}
-                    className="text-blue-500 bg-blue-300"
+                    style={{fillColor: poly.hexColor, color: poly.hexColor, iconUrl: poly.hexColor}}
+                    color={poly.hexColor}
                     />
             <Tooltip sticky>{`Lat ${poly.hexCenter[0]}
                     Lng ${poly.hexCenter[1]}
                     Hex ${poly.hex}`}</Tooltip>
             </GeoJSON> ))}
-      </MapContainer>
+        </MapContainer>
     )
     
 }

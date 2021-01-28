@@ -14,6 +14,8 @@ export default function HexInput ({totalHexes, addHex, resetMapCenter, mapCenter
   const handleKeyDown = async (event) => {
     if(event.key === 'Enter') {
 
+
+
         if( h3.h3IsValid(currentHex) ){
 
           if(totalHexes?.filter((hex) => hex.hex === currentHex).length > 0) {
@@ -46,7 +48,7 @@ export default function HexInput ({totalHexes, addHex, resetMapCenter, mapCenter
       <input
         className="px-5 py-2 text-lg text-left outline-none rounded-xl border-2 border-blue-500 text-gray-500 font-semibold"
         placeholder="Enter H3 Code"
-        onChange={(e) => setCurrentHex(e.target.value)}
+        onChange={(e) => setCurrentHex(e.target.value.trim())}
         value={currentHex}
         onKeyDown={handleKeyDown}>
       </input>

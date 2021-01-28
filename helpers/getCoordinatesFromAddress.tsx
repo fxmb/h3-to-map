@@ -1,10 +1,8 @@
 import Geocode from "react-geocode";
 
-Geocode.setApiKey("AIzaSyCUIscbavHMUZBib-lfpxgs0mZdR2NtMSA");
+Geocode.setApiKey(process.env.NEXT_PUBLIC_GOOGLE_API_KEY);
 
-export default async function getPositionFromAddress(place) {
-
-    const address = place.formatted_address || place.name
+export default async function getCoordinatesFromAddress(address) : Promise<Array<number>> {
 
     const response = await Geocode.fromAddress(address)
 

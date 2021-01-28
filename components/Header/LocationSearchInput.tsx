@@ -3,21 +3,22 @@ import Autocomplete from 'react-google-autocomplete';
 
 const h3 = require("h3-js");
 
-import getPositionFromAddress from '../../helpers/getPositionFromAddress'
+import getCoordinatesFromAddress from '../../helpers/getCoordinatesFromAddress'
 import fetchHexInfo from '../../helpers/h3API'
 
 const LocationSearchInput = ({ addHex, resetMapCenter }) => {
 
-  const handleSelect = async (place) => {
+  const handleSelect = async (place: { formatted_address: any; name: any; }) => {
 
-    const coordinates = await getPositionFromAddress(place)
+    const address  = place.formatted_address || place.name
 
-    const currentHex = await h3.geoToH3(coordinates[0], coordinates[1], 10);
+    const coordinates = await getCoordinatesFromAddress(address)
 
-    const hexInfo = await fetchHexInfo(currentHex)
+    const currentHex = await h3.geoToH3(coordinates[0], coordinates[1], 7);
 
+    const hexInfo = await fetchHexInfo(currentHex, address)
+    console.log('Fetched Hex', hexInfo)
     addHex(hexInfo)
-
     resetMapCenter(hexInfo)
   }
 
@@ -27,7 +28,6 @@ const LocationSearchInput = ({ addHex, resetMapCenter }) => {
         className="px-5 py-2 text-lg text-left outline-none rounded-xl border-2 border-blue-500 text-gray-500 font-semibold"
         apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
         onPlaceSelected={(place) => {
-          console.log(place?.formatted_address, place);
           handleSelect(place)
         }}
         types={['address']}
