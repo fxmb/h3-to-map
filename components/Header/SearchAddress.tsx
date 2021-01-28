@@ -25,7 +25,7 @@ const LocationSearchInput = ({ setTotalHexes, setMapCenter, mapCenter }) => {
     <div className="flex mx-10 p-10 text-center justify-center">
     <Autocomplete
         className="px-5 py-2 text-lg text-left outline-none rounded-xl border-2 border-blue-500 text-gray-500 font-semibold"
-        apiKey="AIzaSyCUIscbavHMUZBib-lfpxgs0mZdR2NtMSA"
+        apiKey={process.env.NEXT_PUBLIC_GOOGLE_API_KEY}
         onPlaceSelected={(place) => {
           console.log(place?.formatted_address, place);
           handleSelect(place)

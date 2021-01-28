@@ -14,6 +14,8 @@ import Logo from '../icons/logo.svg';
 
 export default function Home() {
 
+  console.log('LOcal Env',process.env.NEXT_PUBLIC_GOOGLE_API_KEY)
+
 
   const [mapCenter, setMapCenter] = useState({lat: 51.312801, lng: 9.481544});
   const [totalHexes, setTotalHexes] = useState([]);
