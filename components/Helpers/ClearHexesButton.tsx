@@ -1,6 +1,10 @@
-import React from 'react'
+import { HookCallbacks } from "async_hooks";
 
-export default function ClearHexes ({setTotalHexes}) {
+type Props = {
+    setTotalHexes: Function,
+  }
+
+export default function ClearHexes ({setTotalHexes}: Props) {
 
     function clearHexes() {
         setTotalHexes(() => []);

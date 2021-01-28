@@ -3,7 +3,7 @@ import { Transition } from '@headlessui/react'
 
 const h3 = require("h3-js");
 
-import fetchHexInfo from '../helpers/h3API'
+import fetchHexInfo from '../../helpers/h3API'
 
 
 export default function HexInput ({totalHexes, setTotalHexes, setMapCenter, mapCenter }) {

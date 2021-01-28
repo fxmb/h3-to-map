@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 
-import toGeoJSON from '../helpers/geoJson'
+import toGeoJSON from '../../helpers/geoJson'
 
 import { MapContainer, TileLayer, Tooltip, Popup, Marker, GeoJSON, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
@@ -13,7 +13,7 @@ import L from 'leaflet';
 function getLabel(hexName) {
     return L.divIcon({html: hexName, className: "text-blue-500 bold"});
 }
-import customMarker from '../helpers/customMarker'
+
 export default function Map({hexes, center}) {
 
     return (

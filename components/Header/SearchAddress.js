@@ -3,8 +3,8 @@ import Autocomplete from 'react-google-autocomplete';
 
 const h3 = require("h3-js");
 
-import getPositionFromAddress from '../helpers/getPositionFromAddress'
-import fetchHexInfo from '../helpers/h3API'
+import getPositionFromAddress from '../../helpers/getPositionFromAddress'
+import fetchHexInfo from '../../helpers/h3API'
 
 const LocationSearchInput = ({ setTotalHexes, setMapCenter, mapCenter }) => {
 
