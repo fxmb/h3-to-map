@@ -5,8 +5,7 @@ const h3 = require("h3-js");
 
 import fetchHexInfo from '../../helpers/h3API'
 
-
-export default function HexInput ({totalHexes, setTotalHexes, setMapCenter, mapCenter }) {
+export default function HexInput ({totalHexes, addHex, resetMapCenter, mapCenter }) {
 
   const [currentHex, setCurrentHex] = useState("");
   const [isValidHex, setIsValidHex] = useState(true);
@@ -28,9 +27,10 @@ export default function HexInput ({totalHexes, setTotalHexes, setMapCenter, mapC
 
           const hexInfo = await fetchHexInfo(currentHex)
 
-          setTotalHexes(totalHexes => [...totalHexes, hexInfo])
+          addHex(hexInfo)
           setCurrentHex("")
-          setMapCenter({...mapCenter, lat: hexInfo.hexCenter[0], lng: hexInfo.hexCenter[1]})
+
+          resetMapCenter(hexInfo)
         } 
         
         else {

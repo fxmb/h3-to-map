@@ -6,24 +6,29 @@ import dynamic from "next/dynamic";
 import HexList from '../components/SearchHistory/HexList'
 import HexInput from '../components/Header/HexInput'
 import ClearHexesButton from '../components/Helpers/ClearHexesButton'
-import LocationSearchInput from '../components/Header/SearchAddress'
+import LocationSearchInput from '../components/Header/LocationSearchInput'
 import SwitchToggle from '../components/Helpers/SwitchToggle'
 
 import Logo from '../icons/logo.svg';
 
 
-export default function Home() {
 
-  console.log('LOcal Env',process.env.NEXT_PUBLIC_GOOGLE_API_KEY)
+export default function Home() {
 
 
   const [mapCenter, setMapCenter] = useState({lat: 51.312801, lng: 9.481544});
   const [totalHexes, setTotalHexes] = useState([]);
   const [switchValue, setSwitchValue] = useState(false);
 
-  function switchHex(hex) {
+  function resetMapCenter(hex) {
 
     setMapCenter({...mapCenter, lat: hex.hexCenter[0], lng: hex.hexCenter[1]})
+        
+  }
+
+  function addHex(hex) {
+
+    setTotalHexes(totalHexes => [...totalHexes, hex])
         
   }
 
@@ -32,6 +37,7 @@ export default function Home() {
     if (hexes) {
       setTotalHexes(JSON.parse(hexes))
     }
+
   }, [])
 
   useEffect(() => {
@@ -55,11 +61,10 @@ export default function Home() {
           <span className={`flex ml-3 text-lg font-semibold ${switchValue ? 'text-blue-500' : 'text-gray-500'}`}>Address</span>
         </div>
       {switchValue ?
-        <LocationSearchInput totalHexes={totalHexes} mapCenter={mapCenter} setTotalHexes={setTotalHexes} setMapCenter={setMapCenter}></LocationSearchInput>
+        <LocationSearchInput addHex={addHex} resetMapCenter={resetMapCenter}></LocationSearchInput>
       : 
-      <div className="flex">
-      <HexInput totalHexes={totalHexes} mapCenter={mapCenter} setTotalHexes={setTotalHexes} setMapCenter={setMapCenter}/>
-      </div>}
+      <HexInput addHex={addHex} resetMapCenter={resetMapCenter}/>
+      }
     </div>
     </div>
     <div className="flex z-1" >
@@ -72,7 +77,7 @@ export default function Home() {
           <ClearHexesButton setTotalHexes={setTotalHexes}/>
         </div>
         <hr className="mb-1 mx-3 border-grey border-1"></hr> 
-        <HexList className="flex flex-col" hexes={totalHexes} switchHex={switchHex}/>
+        <HexList className="flex flex-col" hexes={totalHexes} resetMapCenter={resetMapCenter}/>
       </div>
     </div>
 

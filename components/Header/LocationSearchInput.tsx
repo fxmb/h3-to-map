@@ -6,19 +6,19 @@ const h3 = require("h3-js");
 import getPositionFromAddress from '../../helpers/getPositionFromAddress'
 import fetchHexInfo from '../../helpers/h3API'
 
-const LocationSearchInput = ({ setTotalHexes, setMapCenter, mapCenter }) => {
+const LocationSearchInput = ({ addHex, resetMapCenter }) => {
 
   const handleSelect = async (place) => {
-    console.log('Address', place)
+
     const coordinates = await getPositionFromAddress(place)
-    console.log('Coordinates', coordinates)
+
     const currentHex = await h3.geoToH3(coordinates[0], coordinates[1], 10);
 
     const hexInfo = await fetchHexInfo(currentHex)
 
-    setTotalHexes(totalHexes => [...totalHexes, hexInfo])
+    addHex(hexInfo)
 
-    setMapCenter({...mapCenter, lat: hexInfo.hexCenter[0], lng: hexInfo.hexCenter[1]})
+    resetMapCenter(hexInfo)
   }
 
   return (

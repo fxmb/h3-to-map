@@ -2,14 +2,12 @@ import React from 'react'
 
 import {CopyToClipboard} from 'react-copy-to-clipboard';
 
-export default function HexListItem ( {hex, switchHex} ) {
-
-    console.log(hex)
+export default function HexListItem ( {hex, resetMapCenter} ) {
 
     return (
         <div 
             className="p-2 mx-3 mb-1 flex flex-col rounded-lg shadow-lg cursor-pointer hover:shadow-xl"
-            onClick={() => switchHex(hex)}>
+            onClick={() => resetMapCenter(hex)}>
             <div className="flex flex-row justify-between">
                 <span className="text-lg font-bold">{hex.hex}</span>
                 <span className="text-l font-semi-bold">Res {hex.hexResolution}</span>
