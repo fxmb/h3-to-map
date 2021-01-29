@@ -3,6 +3,8 @@ import React, {useEffect} from 'react'
 import toGeoJSON from '../../helpers/geoJson'
 
 import { MapContainer, TileLayer, Tooltip, Popup, Marker, GeoJSON, useMap } from 'react-leaflet'
+import TextPath from 'react-leaflet-textpath';
+
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-defaulticon-compatibility/dist/leaflet-defaulticon-compatibility.css'
 import "leaflet-defaulticon-compatibility";
@@ -10,8 +12,8 @@ import "leaflet-defaulticon-compatibility";
 
 import L from 'leaflet';
 
-function getLabel(hexName) {
-    return L.divIcon({html: hexName, className: "text-blue-500 bold"});
+function getLabel(poly) {
+    return L.divIcon({html: poly.hex, className: `text-${poly.hexColor} text-lg bold`});
 }
 
 export default function Map({hexes, center}) {
@@ -30,20 +32,21 @@ export default function Map({hexes, center}) {
         {hexes
         .sort((hexA, hexB) => hexA.hexResolution > hexB.hexResolution ? 1 : -1)
         .map(poly => (
-            
+            <>
             <GeoJSON 
                 data={toGeoJSON(poly.hexPolygon)}
                 style={{fillColor: poly.hexColorCode, color: poly.hexColorCode}}
                 >
-            <Marker position={{lat: poly.hexCenter[0], lng: poly.hexCenter[1]}}
-                    icon={getLabel(poly.hex)}
-                    style={{fillColor: poly.hexColor, color: poly.hexColor, iconUrl: poly.hexColor}}
-                    color={poly.hexColor}
-                    />
-            <Tooltip sticky>{`Lat ${poly.hexCenter[0]}
-                    Lng ${poly.hexCenter[1]}
-                    Hex ${poly.hex}`}</Tooltip>
-            </GeoJSON> ))}
+                <Marker position={{lat: poly.hexCenter[0], lng: poly.hexCenter[1]}}
+                        icon={getLabel(poly)}
+                        style={{fillColor: poly.hexColor, color: poly.hexColor, iconUrl: poly.hexColor}}
+                        color={poly.hexColor}
+                        />
+            </GeoJSON> 
+
+                        </>
+            
+            ))}
         </MapContainer>
     )
     

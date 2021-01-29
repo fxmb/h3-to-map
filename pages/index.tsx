@@ -67,9 +67,9 @@ export default function Home() {
       }
     </div>
     </div>
-    <div className="flex z-1" >
+    <div className="flex h-screen bg-gray-100" >
       <div className="h-screen w-4/5 z-1">
-      <MapWithNoSSR className="absolute z-1" center={mapCenter} hexes={totalHexes}/>
+      <MapWithNoSSR className="" center={mapCenter} hexes={totalHexes}/>
       </div>
       <div className="flex flex-col w-1/5 bg-white-400">
         <div className="flex flex-row justify-between items-center">
@@ -77,7 +77,7 @@ export default function Home() {
           <ClearHexesButton setTotalHexes={setTotalHexes}/>
         </div>
         <hr className="mb-1 mx-3 border-grey border-1"></hr> 
-        <HexList className="flex flex-col" hexes={totalHexes} resetMapCenter={resetMapCenter}/>
+        <HexList className="flex flex-col" hexes={totalHexes} addHex={addHex} resetMapCenter={resetMapCenter}/>
       </div>
     </div>
 

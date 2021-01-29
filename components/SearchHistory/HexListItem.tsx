@@ -1,10 +1,18 @@
 import React from 'react'
 
 import {CopyToClipboard} from 'react-copy-to-clipboard';
+import { RiFileCopy2Line } from 'react-icons/ri';
+import { FaLevelUpAlt } from 'react-icons/fa';
 
-export default function HexListItem ( {hex, resetMapCenter} ) {
+import {fetchHexParent} from '../../helpers/h3API'
 
-    //console.log(hex['hexResolutionColour'](hex))
+export default function HexListItem ( {hex, resetMapCenter, addHex} ) {
+
+    const fetchParent = async (hex) => {
+
+        const parentHex = await fetchHexParent(hex)
+        addHex(parentHex)
+    }
 
     return (
         <div 
@@ -28,9 +36,13 @@ export default function HexListItem ( {hex, resetMapCenter} ) {
                     </div>
 
                 </div>
+
                 <CopyToClipboard text={`${hex.hexCenter[0]} ${hex.hexCenter[1]}`}>
-                    <span className="flex ml-4 mx-2 my-2 p-2 text-white bg-gray-400 text-xs rounded-xl font-semibold justify-center items-center">Copy</span>
+                    <RiFileCopy2Line className="ml-2 p-1 h-7 w-7 rounded-xl font-semibold justify-center text-white bg-gray-400 hover:text-blue-500 hover:bg-white"/>
                     </CopyToClipboard>
+                    <FaLevelUpAlt className="ml-2 p-1 h-7 w-7 rounded-xl font-semibold justify-center text-white bg-gray-400 hover:text-blue-500 hover:bg-white"
+                                    onClick={() => fetchParent(hex)}
+                    />
 
             </div>
             <div className="flex justify-between mt-2 items-end ml-3 text-gray-400 text-sm font-bold">

@@ -4,7 +4,7 @@ const h3 = require("h3-js");
 import { Hex } from '../types/index';
 import { fillColors } from '../static/fillColors'
 
-export default async function fetchHexInfo(hex: string, address?: string) : Promise<Hex> {
+export async function fetchHexInfo(hex: string, address?: string) : Promise<Hex> {
 
     //const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
@@ -25,5 +25,16 @@ export default async function fetchHexInfo(hex: string, address?: string) : Prom
         hexColor: mapConfig.color,
         hexZoom: mapConfig.zoom,
         hexAddress: address
+    }
+  }
+
+export async function fetchHexParent(hex) : Promise<Hex> {
+
+    //const fetcher = (...args) => fetch(...args).then((res) => res.json());
+
+    const parentHex = await h3.h3ToParent(hex.hex, hex.hexResolution - 1)
+
+    if (parentHex) {
+        return fetchHexInfo(parentHex, hex.hexAddress)
     }
   }

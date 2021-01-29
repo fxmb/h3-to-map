@@ -3,7 +3,7 @@ import { Transition } from '@headlessui/react'
 
 const h3 = require("h3-js");
 
-import fetchHexInfo from '../../helpers/h3API'
+import {fetchHexInfo} from '../../helpers/h3API'
 
 export default function HexInput ({totalHexes, addHex, resetMapCenter, mapCenter }) {
 
@@ -13,8 +13,6 @@ export default function HexInput ({totalHexes, addHex, resetMapCenter, mapCenter
 
   const handleKeyDown = async (event) => {
     if(event.key === 'Enter') {
-
-
 
         if( h3.h3IsValid(currentHex) ){
 
