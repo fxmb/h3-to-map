@@ -5,18 +5,27 @@ const h3 = require("h3-js");
 
 import {fetchHexInfo} from '../../helpers/h3API'
 
-export default function HexInput ({totalHexes, addHex, resetMapCenter, mapCenter }) {
+type HexInputProps = {
+  totalHexes: any;
+  addHex: any;
+  resetMapCenter: any;
+};
+export default function HexInput({
+  totalHexes, 
+  addHex, 
+  resetMapCenter
+}:HexInputProps) : JSX.Element {
 
   const [currentHex, setCurrentHex] = useState("");
   const [isValidHex, setIsValidHex] = useState(true);
   const [isNewHex, setIsNewHex] = useState(true);
 
-  const handleKeyDown = async (event) => {
+  const handleKeyDown = async (event: any) => {
     if(event.key === 'Enter') {
 
         if( h3.h3IsValid(currentHex) ){
 
-          if(totalHexes?.filter((hex) => hex.hex === currentHex).length > 0) {
+          if(totalHexes?.filter((hex: any) => hex.hex === currentHex).length > 0) {
             setIsNewHex(false)
             setCurrentHex("")
             setTimeout(() => setIsNewHex(true), 3000);

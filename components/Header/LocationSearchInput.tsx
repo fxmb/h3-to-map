@@ -6,7 +6,12 @@ const h3 = require("h3-js");
 import getCoordinatesFromAddress from '../../helpers/getCoordinatesFromAddress'
 import {fetchHexInfo} from '../../helpers/h3API'
 
-const LocationSearchInput = ({ addHex, resetMapCenter }) => {
+type LocationSearchInputProps = {
+  addHex: any;
+  resetMapCenter: any;
+};
+
+export default function LocationSearchInput({ addHex, resetMapCenter }: LocationSearchInputProps) : JSX.Element {
 
   const handleSelect = async (place: { formatted_address: any; name: any; }) => {
 
@@ -36,4 +41,3 @@ const LocationSearchInput = ({ addHex, resetMapCenter }) => {
   </div>
 );
   }
-export default LocationSearchInput;
