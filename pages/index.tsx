@@ -3,13 +3,14 @@ import {useState, useEffect} from 'react'
 
 import dynamic from "next/dynamic";
 
-import HexList from '../components/HexList'
-import HexInput from '../components/HexInput'
-import ClearHexesButton from '../components/ClearHexesButton'
-import LocationSearchInput from '../components/SearchAddress'
-import SwitchToggle from '../components/SwitchToggle'
+import HexList from '../components/SearchHistory/HexList'
+import HexInput from '../components/Header/HexInput'
+import ClearHexesButton from '../components/Helpers/ClearHexesButton'
+import LocationSearchInput from '../components/Header/LocationSearchInput'
+import SwitchToggle from '../components/Helpers/SwitchToggle'
 
 import Logo from '../icons/logo.svg';
+
 
 
 export default function Home() {
@@ -19,9 +20,15 @@ export default function Home() {
   const [totalHexes, setTotalHexes] = useState([]);
   const [switchValue, setSwitchValue] = useState(false);
 
-  function switchHex(hex) {
+  function resetMapCenter(hex) {
 
     setMapCenter({...mapCenter, lat: hex.hexCenter[0], lng: hex.hexCenter[1]})
+        
+  }
+
+  function addHex(hex) {
+
+    setTotalHexes(totalHexes => [...totalHexes, hex])
         
   }
 
@@ -30,6 +37,7 @@ export default function Home() {
     if (hexes) {
       setTotalHexes(JSON.parse(hexes))
     }
+
   }, [])
 
   useEffect(() => {
@@ -37,7 +45,7 @@ export default function Home() {
 
   })
 
-  const MapWithNoSSR = dynamic(() => import("../components/Map"), {
+  const MapWithNoSSR = dynamic(() => import("../components/Map/Map"), {
     ssr: false
   });
 
@@ -53,13 +61,15 @@ export default function Home() {
           <span className={`flex ml-3 text-lg font-semibold ${switchValue ? 'text-blue-500' : 'text-gray-500'}`}>Address</span>
         </div>
       {switchValue ?
-        <LocationSearchInput totalHexes={totalHexes} mapCenter={mapCenter} setTotalHexes={setTotalHexes} setMapCenter={setMapCenter}></LocationSearchInput>
-      : <HexInput totalHexes={totalHexes} mapCenter={mapCenter} setTotalHexes={setTotalHexes} setMapCenter={setMapCenter}/>}
+        <LocationSearchInput addHex={addHex} resetMapCenter={resetMapCenter}></LocationSearchInput>
+      : 
+      <HexInput addHex={addHex} resetMapCenter={resetMapCenter}/>
+      }
     </div>
     </div>
-    <div className="flex z-1" >
+    <div className="flex h-screen bg-gray-100" >
       <div className="h-screen w-4/5 z-1">
-        <MapWithNoSSR className="z-1" center={mapCenter} hexes={totalHexes}/>
+      <MapWithNoSSR className="" center={mapCenter} hexes={totalHexes}/>
       </div>
       <div className="flex flex-col w-1/5 bg-white-400">
         <div className="flex flex-row justify-between items-center">
@@ -67,7 +77,7 @@ export default function Home() {
           <ClearHexesButton setTotalHexes={setTotalHexes}/>
         </div>
         <hr className="mb-1 mx-3 border-grey border-1"></hr> 
-        <HexList className="flex flex-col" hexes={totalHexes} switchHex={switchHex}/>
+        <HexList className="flex flex-col" hexes={totalHexes} addHex={addHex} resetMapCenter={resetMapCenter}/>
       </div>
     </div>
 
@@ -75,3 +85,5 @@ export default function Home() {
   </div>
   )
 }
+
+
