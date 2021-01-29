@@ -1,4 +1,4 @@
-import  React, {useState} from  'react'
+import  React from  'react'
 import Autocomplete from 'react-google-autocomplete';
 
 const h3 = require("h3-js");
@@ -19,7 +19,7 @@ export default function LocationSearchInput({ addHex, resetMapCenter }: Location
 
     const coordinates = await getCoordinatesFromAddress(address)
 
-    const currentHex = await h3.geoToH3(coordinates[0], coordinates[1], 10);
+    const currentHex = await h3.geoToH3(coordinates[0], coordinates[1], 15);
 
     const hexInfo = await fetchHexInfo(currentHex, address)
     console.log('Fetched Hex', hexInfo)
