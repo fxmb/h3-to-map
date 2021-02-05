@@ -1,4 +1,4 @@
-import  React, {useState} from  'react'
+import  React from  'react'
 import Autocomplete from 'react-google-autocomplete';
 
 const h3 = require("h3-js");
@@ -6,7 +6,12 @@ const h3 = require("h3-js");
 import getCoordinatesFromAddress from '../../helpers/getCoordinatesFromAddress'
 import {fetchHexInfo} from '../../helpers/h3API'
 
-const LocationSearchInput = ({ addHex, resetMapCenter }) => {
+type LocationSearchInputProps = {
+  addHex: any;
+  resetMapCenter: any;
+};
+
+export default function LocationSearchInput({ addHex, resetMapCenter }: LocationSearchInputProps) : JSX.Element {
 
   const handleSelect = async (place: { formatted_address: any; name: any; }) => {
 
@@ -14,7 +19,7 @@ const LocationSearchInput = ({ addHex, resetMapCenter }) => {
 
     const coordinates = await getCoordinatesFromAddress(address)
 
-    const currentHex = await h3.geoToH3(coordinates[0], coordinates[1], 10);
+    const currentHex = await h3.geoToH3(coordinates[0], coordinates[1], 15);
 
     const hexInfo = await fetchHexInfo(currentHex, address)
     console.log('Fetched Hex', hexInfo)
@@ -36,4 +41,3 @@ const LocationSearchInput = ({ addHex, resetMapCenter }) => {
   </div>
 );
   }
-export default LocationSearchInput;
