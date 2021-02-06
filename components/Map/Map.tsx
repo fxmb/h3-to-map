@@ -20,6 +20,7 @@ export default function Map({hexes, center}) {
 
     return (
         <MapContainer
+	center={center}
         zoom={hexes.length > 0 ? 15 : 5}
         scrollWheelZoom={true}
         className="min-h-full">
