@@ -6,4 +6,4 @@
 
 ## More Info on the Uber H3 Project
 - [H3 Project by Uber](https://eng.uber.com/h3/)
-- [Understanding H3 Resolution Sizes](https://github.com/uber/h3/blob/master/docs/core-library/restable.md)
+- [Understanding H3 Resolution Sizes](https://h3geo.org/docs/core-library/restable/)
